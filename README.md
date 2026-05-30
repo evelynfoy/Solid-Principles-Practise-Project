@@ -18,5 +18,23 @@ functionality  in a single class. If you want to change any of these functions y
 To refactor this code so it is complient with SOLID I will break it into services that have high cohesion and low coupling.
 
 # The Solution
-1) The first step I took was to create a new model class for the user containing user name, password and email. This gives the user data a structure 
-which can be passed seemlessly berween services as required.
+## 1. New User class
+	The first step I took was to create a new model class for the user containing user name, password and email. This gives the user data a structure 
+	which can be passed seemlessly berween services as required.
+
+## 2. Extract different functionalities into service classes
+The second step I took was to extract the different functionalities into service classes. This produced the following classes:-
+
+		- Notifications Service
+		- Authentication Service
+		- Hashing Service
+		- Logger
+		- Validation Service
+		- User Repository
+			
+- I included the auto login and the JWT token generation in the authentication class as these methods have high cohesion and both have the same 
+  responsibility - authentication.
+- I included just one method in the logger class - Log. It takes the message to be logged as a parameter so the same method can be used for all logging types.
+- I included an interface as an abstraction for all classes so concrete instances could be substituted to enable compliance with the 
+  LSP - Liskov Substitution Principle e.g. INotificationService or IAuthentificationService or ILogger.
+

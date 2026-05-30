@@ -1,45 +1,47 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+
 namespace UserAuthenticationSystem;
 
 public class UserManager
 {
     public void RegisterUser(User user)
     {
-        // Validationnip
-        if (user.Username.Length < 3)
-        {
-            Console.WriteLine("Username too short");
-            return;
-        }
 
-        if (!user.Email.Contains("@"))
+        // Validation
+        ValidationService validationService = new ValidationService();
+        if (!validationService.ValidateUser(user))
         {
-            Console.WriteLine("Invalid email");
             return;
         }
 
         // Password hashing
-        string hashedPassword = "HASHED_" + user.Password;
+        HashingService hashingService = new HashingService();
+        string hashedPassword = hashingService.HashPassword(user.Password);
 
         // Save to database
-        File.AppendAllText(
-            "users.txt",
-            $"{user.Username},{hashedPassword},{user.Email}\n");
+        UserRepository userRepository = new UserRepository();
+        userRepository.SaveUser(user, hashedPassword); 
 
         // Send welcome email
-        Console.WriteLine($"Sending welcome email to {user.Email}");
+        NotificationService notificationService = new NotificationService();
+        notificationService.SendEmail(user);
+
+        // Logging
+        Logger logger = new Logger();
 
         // Analytics logging
-        Console.WriteLine($"Analytics: New user registered {user.Username}");
+        logger.Log($"Analytics: New user registered {user.Username}");
 
         // Audit logging
-        Console.WriteLine($"Audit Log: {user.Username} registered");
+        logger.Log($"Audit Log: {user.Username} registered");
 
         // Auto login
-        Console.WriteLine($"{user.Username} logged in");
+        AuthorisationService authorisationService = new AuthorisationService();
+        authorisationService.Login(user.Username);
 
         // Generate JWT token
-        string token = Guid.NewGuid().ToString();
+        string token = authorisationService.GenerateToken();
 
         Console.WriteLine($"JWT Token: {token}");
     }
