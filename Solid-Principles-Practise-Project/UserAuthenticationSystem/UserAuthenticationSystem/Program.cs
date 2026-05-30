@@ -9,7 +9,15 @@ class Program
     {
         User user = new User("john123", "password123", "john@test.com");
 
-        UserManager manager = new UserManager();
+        UserManager manager = new UserManager(
+        new NotificationService(),
+        new HashingService(),
+        new Logger(),
+        new UserRepository(),
+        new ValidationService(),
+        new AuthorisationService()
+
+    );
 
         manager.RegisterUser(user);
 

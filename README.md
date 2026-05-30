@@ -38,3 +38,7 @@ The second step I took was to extract the different functionalities into service
 - I included an interface as an abstraction for all classes so concrete instances could be substituted to enable compliance with the 
   LSP - Liskov Substitution Principle e.g. INotificationService or IAuthentificationService or ILogger.
 
+## 3. Use Dependancy Injection
+The third step I took was to use Dependancy Injection instead of concrete instances in the user manager class.
+The instances are created in the program.cs file and passed into the user manager class so they can be used across all services. This provides a loosely coupled 
+design and it complies with the DIP principle.
