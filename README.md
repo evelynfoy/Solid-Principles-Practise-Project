@@ -16,3 +16,7 @@ functionality  in a single class. If you want to change any of these functions y
 3) It violated the DIP - Dependency Inversion Principle because it depends on concrete implementations e.g. Console and File and has no abstractions.
 
 To refactor this code so it is complient with SOLID I will break it into services that have high cohesion and low coupling.
+
+# The Solution
+1) The first step I took was to create a new model class for the user containing user name, password and email. This gives the user data a structure 
+which can be passed seemlessly berween services as required.

@@ -3,43 +3,40 @@ namespace UserAuthenticationSystem;
 
 public class UserManager
 {
-    public void RegisterUser(
-        string username,
-        string password,
-        string email)
+    public void RegisterUser(User user)
     {
         // Validationnip
-        if (username.Length < 3)
+        if (user.Username.Length < 3)
         {
             Console.WriteLine("Username too short");
             return;
         }
 
-        if (!email.Contains("@"))
+        if (!user.Email.Contains("@"))
         {
             Console.WriteLine("Invalid email");
             return;
         }
 
         // Password hashing
-        string hashedPassword = "HASHED_" + password;
+        string hashedPassword = "HASHED_" + user.Password;
 
         // Save to database
         File.AppendAllText(
             "users.txt",
-            $"{username},{hashedPassword},{email}\n");
+            $"{user.Username},{hashedPassword},{user.Email}\n");
 
         // Send welcome email
-        Console.WriteLine($"Sending welcome email to {email}");
+        Console.WriteLine($"Sending welcome email to {user.Email}");
 
         // Analytics logging
-        Console.WriteLine($"Analytics: New user registered {username}");
+        Console.WriteLine($"Analytics: New user registered {user.Username}");
 
         // Audit logging
-        Console.WriteLine($"Audit Log: {username} registered");
+        Console.WriteLine($"Audit Log: {user.Username} registered");
 
         // Auto login
-        Console.WriteLine($"{username} logged in");
+        Console.WriteLine($"{user.Username} logged in");
 
         // Generate JWT token
         string token = Guid.NewGuid().ToString();
