@@ -59,4 +59,23 @@ This step was to include a rule-based validation pattern so each validation rule
   are set in the Program or calling class and passed into the validation service.
 - A new rule can be added by adding a new Validation Rule class which implements the IValidationRule interface and is added to the list in the program or calling class.
 
+## 6. Add a new password validation rule as demonstration
+This demonstrates how straightforward it is now to make a change like adding a new validation rule.
+I want to add a new validation rule to ensure that the password is at least 8 characters long.
 
+- I add a new validation rule called PasswordValidationRule to the ValidationRule class.
+- This does not require changes to any of the existing rules so no risk of breakage.
+- I then add an instance of this new rule to the list of rules passed to the ValidationService instance in Program class.
+     
+     <b>rules.Add(new PasswordValidationRule());</b>
+  
+  and thats it.
+
+<hr>
+
+You can see the results of running this project here.
+- Normal output when validation is passes - [Normal Output](output.png "Normal Output")
+- Error output when original two errors fail - [Errors](errors.png "Errors")
+- Error output when new password rule added - [Password Error](password-error.png "Password Error")
+
+<hr>

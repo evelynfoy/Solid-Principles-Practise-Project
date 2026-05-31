@@ -37,4 +37,19 @@ namespace UserAuthenticationSystem
             return result;
         }
     }
+
+    public class PasswordValidationRule : IValidationRule
+    {
+        public ValidationResult Validate(User user)
+        {
+            ValidationResult result = new ValidationResult();
+
+            if (user.Password.Length < 8)
+            {
+                result.Errors.Add("Password must be at least 8 characters long.");
+            }
+
+            return result;
+        }
+    }
 }
