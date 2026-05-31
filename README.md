@@ -48,3 +48,15 @@ Next I replaced the boolean types I was using for validation with a new validati
 boolean true/false result of the test but also multiple error messages. 
 The boolean result is automatically set to whether the error list contains any errors.
 
+## 5. Include a rules-based validation pattern
+This step was not strictly necessary as this is a very small project and could be considered over-engineering but it was a technique I wanted to practise 
+and it ensures strict compliance with the OCP principle (Open/Closed Principle).
+This step was to include a rule-based validation pattern so each validation rule becomes independant.
+
+- I created a validation rule interface requiring a Validate method for implementation.
+- I then created a validation rule class implementing that interface for each validation rule e.g. Username length and valid email.
+- I then added a constructor to the validation services class which takes a list of rules and stores them on instantiation. This means the set of rules to be implemented by the validation service 
+  are set in the Program or calling class and passed into the validation service.
+- A new rule can be added by adding a new Validation Rule class which implements the IValidationRule interface and is added to the list in the program or calling class.
+
+

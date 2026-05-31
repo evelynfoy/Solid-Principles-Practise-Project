@@ -11,19 +11,22 @@ public interface IValidationService
 
 public class ValidationService : IValidationService
 {
+    private readonly List<IValidationRule> _rules;
+
+    public ValidationService(List<IValidationRule> rules)
+    {
+        _rules = rules;
+    }
+
     public ValidationResult ValidateUser(User user)
     {
-        ValidationResult result = new ValidationResult();
+        ValidationResult finalResult = new ValidationResult();
 
-        if (user.Username.Length < 3)
+        foreach (IValidationRule rule in _rules)
         {
-            result.Errors.Add("Username too short");
+            ValidationResult result = rule.Validate(user);
+            finalResult.Errors.AddRange(result.Errors);
         }
-
-        if (!user.Email.Contains("@"))
-        {
-            result.Errors.Add("Invalid email");
-        }
-        return result;
+        return finalResult;
     }
 }
