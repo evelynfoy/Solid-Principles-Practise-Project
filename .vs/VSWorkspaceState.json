@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Solid-Principles-Practise-Project",
+    "\\Solid-Principles-Practise-Project\\UserAuthenticationSystem",
+    "\\Solid-Principles-Practise-Project\\UserAuthenticationSystem\\UserAuthenticationSystem"
   ],
+  "SelectedNode": "\\user-authentication-system.txt",
   "PreviewInSolutionExplorer": false
 }

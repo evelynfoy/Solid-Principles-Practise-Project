@@ -2,7 +2,7 @@
 I asked ChatGPT to provide a C# class that violates the solid principles so I could practise correcting it and structuring the project better.
 
 # The Challenge
-ChatGPT provided me with this [User Authentication System](User%20%Authenticiation%20%System.txt "User Authentication System")  project which
+ChatGPT provided me with this [User Authentication System](user-authentication-system.txt "User Authentication System")  project which
 violates the SOLID Principles. The challenge is to refactor the project so that 
 it complies with these principles giving it a much better design.
 
@@ -19,8 +19,8 @@ To refactor this code so it is complient with SOLID I will break it into service
 
 # The Solution
 ## 1. New User class
-	The first step I took was to create a new model class for the user containing user name, password and email. This gives the user data a structure 
-	which can be passed seemlessly berween services as required.
+The first step I took was to create a new model class for the user containing user name, password and email. This gives the user data a structure 
+which can be passed seemlessly berween services as required.
 
 ## 2. Extract different functionalities into service classes
 The second step I took was to extract the different functionalities into service classes. This produced the following classes:-
@@ -42,3 +42,9 @@ The second step I took was to extract the different functionalities into service
 The third step I took was to use Dependancy Injection instead of concrete instances in the user manager class.
 The instances are created in the program.cs file and passed into the user manager class so they can be used across all services. This provides a loosely coupled 
 design and it complies with the DIP principle.
+
+## 4. Use Validation Result object instead of boolean for validation
+Next I replaced the boolean types I was using for validation with a new validation result object which can store not only the final 
+boolean true/false result of the test but also multiple error messages. 
+The boolean result is automatically set to whether the error list contains any errors.
+

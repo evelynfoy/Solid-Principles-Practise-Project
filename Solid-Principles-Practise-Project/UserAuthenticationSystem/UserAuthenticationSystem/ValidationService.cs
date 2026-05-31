@@ -6,24 +6,24 @@ namespace UserAuthenticationSystem;
 
 public interface IValidationService
 {
-    public bool ValidateUser(User user);
+    public ValidationResult ValidateUser(User user);
 }
 
 public class ValidationService : IValidationService
 {
-    public bool ValidateUser(User user)
+    public ValidationResult ValidateUser(User user)
     {
+        ValidationResult result = new ValidationResult();
+
         if (user.Username.Length < 3)
         {
-            Console.WriteLine("Username too short");
-            return false;
+            result.Errors.Add("Username too short");
         }
 
         if (!user.Email.Contains("@"))
         {
-            Console.WriteLine("Invalid email");
-            return false;
+            result.Errors.Add("Invalid email");
         }
-        return true;
+        return result;
     }
 }

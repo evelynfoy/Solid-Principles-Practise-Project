@@ -30,10 +30,16 @@ public class UserManager
 
     public void RegisterUser(User user)
     {
+        ValidationResult validationResult = _validationService.ValidateUser(user);
 
         // Validation
-        if (!_validationService.ValidateUser(user))
+        if (!validationResult.IsValid)
         {
+            Console.WriteLine("Validation failed.");
+            foreach (var error in validationResult.Errors)
+            {
+                Console.WriteLine(error);
+            }
             return;
         }
 
